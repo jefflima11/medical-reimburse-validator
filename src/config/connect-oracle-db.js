@@ -15,12 +15,14 @@ async function connectToOracle() {
 
   try {
     connection = await oracledb.getConnection(config);
-    // console.log('Conectado ao Oracle!');
+    console.log('Conectado ao Oracle!');
     return connection; 
   } catch (err) {
     console.error('Erro ao conectar ao Oracle:', err);
     throw err;
   }
 }
+
+connectToOracle();
 
 module.exports = connectToOracle; 

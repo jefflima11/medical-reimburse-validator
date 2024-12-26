@@ -1,7 +1,7 @@
 const readline = require('readline');
-const prestadorGrupo = require("./prestadorGrupo");
-const retornaDados = require("./funcaoEscolhaGrupo");
-const { retornaProcedimentoGrupo } = require("./retornaProcedimentoGrupo");
+const { retornaDados } = require('./src/routes/choose-group-function.js');
+const { retornaProcedimentoGrupo } = require('./src/helpers/generate-procedure-filter.js');
+const prestadorGrupo = require('./src/helpers/provider-group-mapping.js');
 
 // Cria interface para entrada e saída no console
 const rl = readline.createInterface({
@@ -16,7 +16,7 @@ rl.question('Escolha: ', (escolha) => {
     if (escolha === 'p') {
         // Solicita código do prestador e competência
         rl.question('\nInforme o código do prestador: \n', (prestador) => {
-           rl.question('\nInforme a competencia: ', (competencia) => {
+           rl.question('\nInforme a competência: ', (competencia) => {
                 console.log("\n");  
                 
                 // Filtra grupo com base no prestador informado
@@ -28,11 +28,11 @@ rl.question('Escolha: ', (escolha) => {
             });
         });
 
-    } else if(escolha === 'g') {
+    } else if (escolha === 'g') {
 
         // Opção 'Grupo' escolhida
         rl.question('\nInforme o código do grupo de repasse: ', (grupo) => {
-            rl.question('\nInforme a competencia: ', (competencia) => {
+            rl.question('\nInforme a competência: ', (competencia) => {
                 
                 let prestadoresDoRepasse = prestadorGrupo.filter(prest => prest.group == grupo).map(prest => prest.prestador);
                 
@@ -44,12 +44,12 @@ rl.question('Escolha: ', (escolha) => {
                 }
             
                 rl.close();
-            })
+            });
         });
 
     } else {
         // Opção inválida
         console.log("Opção não disponível");
         rl.close();
-    };
+    }
 });
